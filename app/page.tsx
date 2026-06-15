@@ -165,7 +165,7 @@ export default function LandingPage() {
           <Link href="/onboarding" className="hidden md:inline-flex bg-gray-900 text-white text-sm px-5 py-2.5 rounded-xl hover:bg-gray-700 transition-colors font-medium">
             Get started
           </Link>
-          <UserButton afterSignOutUrl="/" />
+          <UserButton />
           {/* Mobile hamburger */}
           <button
             onClick={() => setMobileMenuOpen((v) => !v)}
