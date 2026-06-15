@@ -2,11 +2,12 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import { UserButton } from "@clerk/nextjs";
+import { UserButton,useAuth } from "@clerk/nextjs";
 
 export default function LandingPage() {
   const [activeFaq, setActiveFaq] = useState<number | null>(null);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const { isSignedIn } = useAuth();
 
   const features = [
     {
@@ -161,10 +162,18 @@ export default function LandingPage() {
           <Link href="/about" className="text-sm text-gray-500 hover:text-gray-900 transition-colors">About</Link>
         </div>
 
-        <div className="flex items-center gap-3">
-          <Link href="/onboarding" className="hidden md:inline-flex bg-gray-900 text-white text-sm px-5 py-2.5 rounded-xl hover:bg-gray-700 transition-colors font-medium">
-            Get started
-          </Link>
+<div className="flex items-center gap-3">
+  {isSignedIn ? (
+    <Link href="/chat" className="hidden md:inline-flex bg-gray-900 text-white text-sm px-5 py-2.5 rounded-xl hover:bg-gray-700 transition-colors font-medium">
+      Open Kol Tov
+    </Link>
+  ) : (
+    <Link href="/onboarding" className="hidden md:inline-flex bg-gray-900 text-white text-sm px-5 py-2.5 rounded-xl hover:bg-gray-700 transition-colors font-medium">
+      Get started
+    </Link>
+  )}
+  <UserButton />
+  {/* Mobile hamburger */}
           <UserButton />
           {/* Mobile hamburger */}
           <button
@@ -207,13 +216,15 @@ export default function LandingPage() {
               </a>
             ))}
             <div className="mt-6">
-              <Link
-                href="/onboarding"
-                onClick={() => setMobileMenuOpen(false)}
-                className="w-full flex items-center justify-center bg-gray-900 text-white text-base font-medium px-6 py-4 rounded-2xl hover:bg-gray-700 transition-colors"
-              >
-                Get started →
-              </Link>
+<div className="mt-6">
+  <Link
+    href={isSignedIn ? "/chat" : "/onboarding"}
+    onClick={() => setMobileMenuOpen(false)}
+    className="w-full flex items-center justify-center bg-gray-900 text-white text-base font-medium px-6 py-4 rounded-2xl hover:bg-gray-700 transition-colors"
+  >
+    {isSignedIn ? "Open Kol Tov →" : "Get started →"}
+  </Link>
+</div>
             </div>
           </div>
         </div>
