@@ -173,8 +173,6 @@ export default function LandingPage() {
     </Link>
   )}
   <UserButton />
-  {/* Mobile hamburger */}
-          <UserButton />
           {/* Mobile hamburger */}
           <button
             onClick={() => setMobileMenuOpen((v) => !v)}
